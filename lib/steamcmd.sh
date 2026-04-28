@@ -38,7 +38,7 @@ install_steamcmd() {
 fix_steamclient_symlink() {
     local install_dir="$1"
     local steamcmd_dir="${install_dir}/steamcmd"
-    local target_dir="${HOME}/.steam/sdk64"
+    local target_dir="${HOME:?HOME must be set for steamclient symlink}/.steam/sdk64"
 
     mkdir -p "${target_dir}"
     if [[ -f "${steamcmd_dir}/linux64/steamclient.so" ]]; then

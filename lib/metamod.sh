@@ -160,9 +160,9 @@ install_csay() {
     http_code=$(curl -fsSL -o "${tmpfile}" -w "%{http_code}" "${csay_url}" 2>/dev/null) || true
 
     if [[ "$http_code" != "200" ]]; then
-        log_warn "Failed to download CSay plugin (HTTP ${http_code}). You may need to install it manually."
-        log_warn "Download URL: ${csay_url}"
-        return 0
+        log_error "Failed to download CSay plugin (HTTP ${http_code}). You may need to install it manually."
+        log_error "Download URL: ${csay_url}"
+        return 1
     fi
 
     mkdir -p "${plugins_dir}"

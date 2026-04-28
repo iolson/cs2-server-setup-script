@@ -257,12 +257,14 @@ phase_system_prep() {
     apt-get update -qq
 
     # Install dependencies
-    apt-get install -y -qq \
+    if ! apt-get install -y -qq \
         lib32gcc-s1 lib32stdc++6 \
         curl wget tar unzip jq \
         tmux screen \
-        ca-certificates \
-        2>&1 | tail -n1
+        ca-certificates; then
+        log_error "Failed to install system dependencies"
+        return 1
+    fi
 
     log_info "System dependencies installed"
 }

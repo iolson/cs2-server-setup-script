@@ -18,6 +18,7 @@ fi
 
 source "${LIB_DIR}/common.sh"
 source "${LIB_DIR}/firewall.sh"
+source "${LIB_DIR}/instance.sh"
 
 # Check root
 if [[ $EUID -ne 0 ]]; then
@@ -62,8 +63,8 @@ fi
 # ---------------------------------------------------------------------------
 # 2. Remove firewall rules
 # ---------------------------------------------------------------------------
-GAME_PORT=$(( 27015 + (INSTANCE_NUM - 1) * 100 ))
-GOTV_PORT=$(( 27020 + (INSTANCE_NUM - 1) * 100 ))
+GAME_PORT=$(calc_game_port "$INSTANCE_NUM")
+GOTV_PORT=$(calc_gotv_port "$INSTANCE_NUM")
 remove_ufw_for_instance "$GAME_PORT" "$GOTV_PORT"
 
 # ---------------------------------------------------------------------------
