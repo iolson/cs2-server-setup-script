@@ -70,6 +70,7 @@ for envfile in "${INSTALL_DIR}/instances"/server-*/instance.env; do
     [[ -f "$envfile" ]] || continue
     EBOT_IP=$(grep "^CS2_EBOT_IP=" "$envfile" | head -n1 | cut -d= -f2)
     EBOT_PORT=$(grep "^CS2_EBOT_PORT=" "$envfile" | head -n1 | cut -d= -f2)
+    EBOT_LOG_ADDRESS=$(grep "^CS2_EBOT_LOG_ADDRESS=" "$envfile" | head -n1 | cut -d= -f2-)
     break
 done
 
@@ -80,6 +81,7 @@ if [[ -z "$EBOT_IP" ]]; then
     done
 fi
 EBOT_PORT="${EBOT_PORT:-12345}"
+EBOT_LOG_ADDRESS="${EBOT_LOG_ADDRESS:-http://${EBOT_IP}:${EBOT_PORT}}"
 
 # Instance-specific prompts
 HOSTNAME=$(prompt_value "Server hostname" "CS2 Server ${NEXT_NUM}")
@@ -128,7 +130,8 @@ setup_instance \
     "${PUBLIC_IP}" \
     "${EBOT_IP}" \
     "${EBOT_PORT}" \
-    "${SERVICE_USER}"
+    "${SERVICE_USER}" \
+    "${EBOT_LOG_ADDRESS}"
 
 write_credentials_file "${INSTALL_DIR}" "${NEXT_NUM}" "${RCON_PASS}" "${GAME_PORT}"
 

@@ -117,6 +117,11 @@ collect_global_config() {
     done
     EBOT_PORT="$ebot_port"
 
+    # eBot log address — the base URL that eBot's LOG_ADDRESS_SERVER is set to
+    # Default matches eBot's default: http://IP:PORT
+    local default_log_addr="http://${ebot_ip}:${ebot_port}"
+    EBOT_LOG_ADDRESS=$(prompt_value "eBot log address base URL" "${default_log_addr}")
+
     # Metamod / CSay toggle
     if prompt_yes_no "Install Metamod + CounterStrikeSharp?" "yes"; then
         INSTALL_METAMOD="true"
@@ -208,6 +213,7 @@ display_summary() {
     echo "  Service user:  ${SERVICE_USER}"
     echo "  Public IP:     ${PUBLIC_IP}"
     echo "  eBot:          ${EBOT_IP}:${EBOT_PORT}"
+    echo "  eBot log URL:  ${EBOT_LOG_ADDRESS}"
     echo "  Metamod/CSS:   ${INSTALL_METAMOD}"
     echo "  CSay:          ${INSTALL_CSAY}"
     echo ""
@@ -333,7 +339,8 @@ phase_instances() {
             "${PUBLIC_IP}" \
             "${EBOT_IP}" \
             "${EBOT_PORT}" \
-            "${SERVICE_USER}"
+            "${SERVICE_USER}" \
+            "${EBOT_LOG_ADDRESS}"
 
         write_credentials_file \
             "${INSTALL_DIR}" \

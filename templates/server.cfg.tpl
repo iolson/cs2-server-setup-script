@@ -35,7 +35,7 @@ mp_logdetail 3
 mp_logmoney 1
 
 // Log forwarding to eBot logs-receiver
-logaddress_add_http "http://%%EBOT_IP%%:%%EBOT_PORT%%/log/%%PUBLIC_IP%%:%%GAME_PORT%%"
+logaddress_add_http "%%EBOT_LOG_ADDRESS%%/%%PUBLIC_IP%%:%%GAME_PORT%%"
 
 // ---------------------------------------------------------------------------
 // GOTV

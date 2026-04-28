@@ -75,7 +75,8 @@ handle_existing_config() {
 #
 # Usage: setup_instance <install_dir> <instance_num> <template_dir> \
 #            <hostname> <gslt> <rcon_pass> <server_pass> <gotv_enabled> \
-#            <max_players> <public_ip> <ebot_ip> <ebot_port> <service_user>
+#            <max_players> <public_ip> <ebot_ip> <ebot_port> \
+#            <service_user> <ebot_log_address>
 # ---------------------------------------------------------------------------
 setup_instance() {
     local install_dir="$1"
@@ -91,6 +92,7 @@ setup_instance() {
     local ebot_ip="${11}"
     local ebot_port="${12}"
     local service_user="${13}"
+    local ebot_log_address="${14:-http://${ebot_ip}:${ebot_port}}"
 
     local game_port gotv_port client_port
     game_port=$(calc_game_port "$instance_num")
@@ -123,7 +125,8 @@ setup_instance() {
             "GAME_PORT=${game_port}" \
             "PUBLIC_IP=${public_ip}" \
             "EBOT_IP=${ebot_ip}" \
-            "EBOT_PORT=${ebot_port}"
+            "EBOT_PORT=${ebot_port}" \
+            "EBOT_LOG_ADDRESS=${ebot_log_address}"
     fi
 
     # 4. Render autoexec.cfg
@@ -147,6 +150,7 @@ CS2_GSLT_TOKEN=${gslt}
 CS2_PUBLIC_IP=${public_ip}
 CS2_EBOT_IP=${ebot_ip}
 CS2_EBOT_PORT=${ebot_port}
+CS2_EBOT_LOG_ADDRESS=${ebot_log_address}
 CS2_MAX_PLAYERS=${max_players}
 CS2_GOTV_ENABLED=${gotv_enabled}
 ENVEOF

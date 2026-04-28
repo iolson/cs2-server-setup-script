@@ -148,7 +148,7 @@ install_counterstrikesharp() {
 install_csay() {
     local install_dir="$1"
     local plugins_dir="${install_dir}/serverfiles/game/csgo/addons/counterstrikesharp/plugins"
-    local csay_url="https://esport-tools.net/downloads/CSay.zip"
+    local csay_url="https://esport-tools.net/download/CSay-CS2.zip"
     local tmpfile
 
     log_step "Installing CSay plugin"
